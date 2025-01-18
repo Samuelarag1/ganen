@@ -4,6 +4,7 @@ import { signIn, useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import FutbolCarousel360 from "./components/Carousel";
+import Navbar from "./components/Navigation";
 
 const teams = [
   {
@@ -207,53 +208,43 @@ const teams = [
 export default function Home() {
   const { data: session } = useSession();
 
-  if (!session) {
-    return (
-      <>
-        <main className="w-full flex items-center justify-around border-b border-white">
-          <h1 className="text-[4rem] text-shadow-green text-white">GANEN</h1>
-
-          <div className="flex gap-5 items-center">
-            <button
-              onClick={() => signIn("twitter")}
-              className="bg-black border-solid border-white border-1 text-white p-2 rounded-full flex items-center gap-2"
-            >
-              Inicia sesión con <FaSquareXTwitter size={20} />
-            </button>
-          </div>
-        </main>
-        <div className="text-white text-center">
-          <p>¡Inicia sesión para comenzar a jugar!</p>
-          <div className="h-10 bg-black/50 flex items-center">
-            <FutbolCarousel360 teams={teams} />
-          </div>
+  return (
+    <>
+      <Navbar />
+      <main className="w-full flex items-center justify-around py-10">
+        {/* <h1 className="text-[4rem] text-shadow-green text-white">GANEN</h1> */}
+      </main>
+      <div className="text-white text-center mt-5">
+        {session ? <p>¡Inicia sesión para comenzar a jugar!</p> : ""}
+        <div className="h-10 bg-black/50 flex items-center">
+          <FutbolCarousel360 teams={teams} />
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 
   return (
-    <main className="w-full flex items-center justify-around border-b border-white">
-      <h1 className="text-[5rem] text-shadow-green text-white">GANEN</h1>
-      <div className="flex items-center justify-center gap-2">
-        <div className="bg-[#AEF6C7] rounded-full h-14 w-14 text-center items-center flex justify-center border-black border-2 border-solid">
-          <p>0 pts</p>
+    <>
+      <Navbar />
+      <main className="w-full flex items-center justify-around">
+        {/* <h1 className="text-[5rem] text-shadow-green text-white">GANEN</h1> */}
+        <div className="flex items-center justify-center gap-2 py-10">
+          <div className="flex items-center gap-2">
+            <p>{session.user?.name || "Nombre no disponible"}</p>
+            <Image
+              src={session.user?.image || "/default-avatar.jpg"} // Usa una imagen predeterminada si no existe la imagen del usuario
+              alt="Avatar"
+              width={30}
+              height={30}
+              className="rounded-full"
+              loading="lazy"
+            />
+          </div>
         </div>
         <div className="flex items-center gap-2">
-          <p>{session.user?.name || "Nombre no disponible"}</p>
-          <Image
-            src={session.user?.image || "/default-avatar.jpg"} // Usa una imagen predeterminada si no existe la imagen del usuario
-            alt="Avatar"
-            width={30}
-            height={30}
-            className="rounded-full"
-            loading="lazy"
-          />
+          <button onClick={() => signOut()}>Cerrar sesión</button>
         </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <button onClick={() => signOut()}>Cerrar sesión</button>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
