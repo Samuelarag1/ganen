@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+:root{
+  background-color: #212922;
+}
+
+
+.text-shadow-black{
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+
+.text-shadow-green{
+  text-shadow: 4px 4px 2px rgba(174, 246, 199, 0.4);
+}

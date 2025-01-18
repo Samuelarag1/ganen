@@ -8,6 +8,16 @@ export default {
   ],
   theme: {
     extend: {
+      animation: {
+        "scroll-infinite": "scrollInfinite 20s linear infinite",
+      },
+      keyframes: {
+        scrollInfinite: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

@@ -1,33 +1,27 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// app/layout.tsx
 import "./globals.css";
+import { Lalezar } from "next/font/google";
+import { SessionProvider } from "./SessionProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const lalezar = Lalezar({
   subsets: ["latin"],
+  weight: "400",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "Ganen",
-  description: "El mejor Prode de la historia",
+export const metadata = {
+  title: "Prode App",
+  description: "Hacer predicciones deportivas",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="es">
+      <body className={lalezar.className}>
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
