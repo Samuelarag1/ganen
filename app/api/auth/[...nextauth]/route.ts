@@ -1,12 +1,12 @@
 import NextAuth from "next-auth";
 import TwitterProvider from "next-auth/providers/twitter";
 
-export const authOptions = {
+const handler = NextAuth({
   providers: [
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID!,
       clientSecret: process.env.TWITTER_CLIENT_SECRET!,
-      version: "2.0", // Asegúrate de usar OAuth 2.0
+      version: "2.0",
     }),
   ],
   callbacks: {
@@ -24,8 +24,6 @@ export const authOptions = {
   pages: {
     signIn: "/auth/signin",
   },
-};
-
-const handler = NextAuth(authOptions);
+});
 
 export { handler as GET, handler as POST };

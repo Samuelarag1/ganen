@@ -1,14 +1,5 @@
-import { useEffect, useRef } from "react";
+import { Team } from "@/Models/Teams";
 import Image from "next/image";
-
-// Definir la interfaz para los equipos
-interface Team {
-  id: number;
-  name: string;
-  image: string;
-  width: number;
-  height: number;
-}
 
 const FutbolCarousel360 = ({ teams }: { teams: Team[] }) => {
   return (

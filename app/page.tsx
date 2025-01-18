@@ -240,9 +240,9 @@ export default function Home() {
           <p>0 pts</p>
         </div>
         <div className="flex items-center gap-2">
-          <p>{session.user?.name}</p>
+          <p>{session.user?.name || "Nombre no disponible"}</p>
           <Image
-            src={session.user?.image!}
+            src={session.user?.image || "/default-avatar.jpg"} // Usa una imagen predeterminada si no existe la imagen del usuario
             alt="Avatar"
             width={30}
             height={30}

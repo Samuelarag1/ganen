@@ -1,4 +1,3 @@
-// app/layout.tsx
 import "./globals.css";
 import { Lalezar } from "next/font/google";
 import { SessionProvider } from "./SessionProvider";
