@@ -1,30 +1,32 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import TwitterProvider from "next-auth/providers/twitter";
 
-const handler = NextAuth({
+const authOptions: AuthOptions = {
   providers: [
     TwitterProvider({
-      clientId: process.env.TWITTER_CLIENT_ID!,
-      clientSecret: process.env.TWITTER_CLIENT_SECRET!,
-      version: "2.0",
+      clientId: process.env.TWITTER_CLIENT_ID || "",
+      clientSecret: process.env.TWITTER_CLIENT_SECRET || "",
+      version: "2.0", // API de Twitter v2
     }),
   ],
   callbacks: {
-    async jwt({ token, account }: { token: any; account: any }) {
+    async jwt({ token, account }) {
       if (account) {
-        token.accessToken = account.access_token;
+        token.accessToken = account.access_token as string; // Asegura que `access_token` sea tratado como `string`
       }
       return token;
     },
-    async session({ session, token }: { session: any; token: any }) {
-      session.accessToken = token.accessToken;
+    async session({ session, token }) {
+      session.accessToken = token.accessToken as string; // Asegura que `token.accessToken` sea tratado como `string`
       return session;
     },
   },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/auth/signin", // Página personalizada de inicio de sesión
   },
-  secret: process.env.NEXTAUTH_SECRET!,
-});
+  secret: process.env.NEXTAUTH_SECRET || "", // Asegúrate de definir esta variable
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
