@@ -1,8 +1,6 @@
 "use client";
 
-import { signIn, useSession, signOut } from "next-auth/react";
-import Image from "next/image";
-import { FaSquareXTwitter } from "react-icons/fa6";
+import { useSession } from "next-auth/react";
 import FutbolCarousel360 from "./components/Carousel";
 import Navbar from "./components/Navigation";
 
@@ -207,13 +205,12 @@ const teams = [
 
 export default function Home() {
   const { data: session } = useSession();
+  // console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
 
   return (
     <>
       <Navbar />
-      <main className="w-full flex items-center justify-around py-10">
-        {/* <h1 className="text-[4rem] text-shadow-green text-white">GANEN</h1> */}
-      </main>
+      {/* <main className="w-full flex items-center justify-around py-10"></main> */}
       <div className="text-white text-center mt-5">
         {session ? <p>¡Inicia sesión para comenzar a jugar!</p> : ""}
         <div className="h-10 bg-black/50 flex items-center">
@@ -223,28 +220,28 @@ export default function Home() {
     </>
   );
 
-  return (
-    <>
-      <Navbar />
-      <main className="w-full flex items-center justify-around">
-        {/* <h1 className="text-[5rem] text-shadow-green text-white">GANEN</h1> */}
-        <div className="flex items-center justify-center gap-2 py-10">
-          <div className="flex items-center gap-2">
-            <p>{session.user?.name || "Nombre no disponible"}</p>
-            <Image
-              src={session.user?.image || "/default-avatar.jpg"} // Usa una imagen predeterminada si no existe la imagen del usuario
-              alt="Avatar"
-              width={30}
-              height={30}
-              className="rounded-full"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <button onClick={() => signOut()}>Cerrar sesión</button>
-        </div>
-      </main>
-    </>
-  );
+  // return (
+  //   <>
+  //     <Navbar />
+  //     <main className="w-full flex items-center justify-around">
+  //       {/* <h1 className="text-[5rem] text-shadow-green text-white">GANEN</h1> */}
+  //       <div className="flex items-center justify-center gap-2 py-10">
+  //         <div className="flex items-center gap-2">
+  //           <p>{session.user?.name || "Nombre no disponible"}</p>
+  //           <Image
+  //             src={session.user?.image || "/default-avatar.jpg"} // Usa una imagen predeterminada si no existe la imagen del usuario
+  //             alt="Avatar"
+  //             width={30}
+  //             height={30}
+  //             className="rounded-full"
+  //             loading="lazy"
+  //           />
+  //         </div>
+  //       </div>
+  //       <div className="flex items-center gap-2">
+  //         <button onClick={() => signOut()}>Cerrar sesión</button>
+  //       </div>
+  //     </main>
+  //   </>
+  // );
 }

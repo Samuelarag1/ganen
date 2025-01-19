@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { Teko } from "next/font/google";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { FaSquareXTwitter } from "react-icons/fa6";
 
