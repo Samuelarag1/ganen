@@ -134,7 +134,7 @@ const Navbar: React.FC = () => {
               Preguntas Frequentes
             </a>
           </li>
-          {session ? (
+          {!session ? (
             <div className="flex gap-5 items-center">
               <button
                 onClick={() => signIn("twitter")}

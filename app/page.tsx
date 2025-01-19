@@ -210,13 +210,14 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      {/* <main className="w-full flex items-center justify-around py-10"></main> */}
-      <div className="text-white text-center mt-5">
-        {session ? <p>¡Inicia sesión para comenzar a jugar!</p> : ""}
-        <div className="h-10 bg-black/50 flex items-center">
-          <FutbolCarousel360 teams={teams} />
+      <main className="w-full flex items-center justify-around py-10">
+        <div className="text-white text-center mt-12">
+          {!session ? <p>¡Inicia sesión para comenzar a jugar!</p> : ""}
+          <div className="h-10 bg-black/50 flex items-center lg:h-20">
+            <FutbolCarousel360 teams={teams} />
+          </div>
         </div>
-      </div>
+      </main>
     </>
   );
 
