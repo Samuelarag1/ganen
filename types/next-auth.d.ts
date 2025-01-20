@@ -2,10 +2,10 @@ import NextAuth from "next-auth";
 
 declare module "next-auth" {
   interface Session {
-    accessToken?: string; // Propiedad personalizada
+    accessToken?: string;
   }
 
   interface JWT {
-    accessToken?: string; // Propiedad personalizada en el token
+    accessToken?: string;
   }
 }

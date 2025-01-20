@@ -1,8 +1,9 @@
 "use client";
 
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import FutbolCarousel360 from "./components/Carousel";
 import Navbar from "./components/Navigation";
+import Image from "next/image";
 
 const teams = [
   {
@@ -205,44 +206,45 @@ const teams = [
 
 export default function Home() {
   const { data: session } = useSession();
-  // console.log("NEXTAUTH_SECRET:", process.env.NEXTAUTH_SECRET);
+
+  if (!session) {
+    return (
+      <>
+        <Navbar />
+        <main className="w-full flex items-center justify-around py-10">
+          <div className="text-white text-center mt-12">
+            {!session ? <p>¡Inicia sesión para comenzar a jugar!</p> : ""}
+            <div className="h-10 bg-black/50 flex items-center lg:h-20">
+              <FutbolCarousel360 teams={teams} />
+            </div>
+          </div>
+        </main>
+      </>
+    );
+  }
 
   return (
     <>
       <Navbar />
-      <main className="w-full flex items-center justify-around py-10">
-        <div className="text-white text-center mt-12">
-          {!session ? <p>¡Inicia sesión para comenzar a jugar!</p> : ""}
-          <div className="h-10 bg-black/50 flex items-center lg:h-20">
-            <FutbolCarousel360 teams={teams} />
+      <main className="w-full flex items-center justify-around">
+        {/* <h1 className="text-[5rem] text-shadow-green text-white">GANEN</h1> */}
+        <div className="flex items-center justify-center gap-2 py-10">
+          <div className="flex items-center gap-2">
+            <p>{session.user?.name || "Nombre no disponible"}</p>
+            <Image
+              src={session.user?.image || "/default-avatar.jpg"}
+              alt="Avatar"
+              width={30}
+              height={30}
+              className="rounded-full"
+              loading="lazy"
+            />
           </div>
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={() => signOut()}>Cerrar sesión</button>
         </div>
       </main>
     </>
   );
-
-  // return (
-  //   <>
-  //     <Navbar />
-  //     <main className="w-full flex items-center justify-around">
-  //       {/* <h1 className="text-[5rem] text-shadow-green text-white">GANEN</h1> */}
-  //       <div className="flex items-center justify-center gap-2 py-10">
-  //         <div className="flex items-center gap-2">
-  //           <p>{session.user?.name || "Nombre no disponible"}</p>
-  //           <Image
-  //             src={session.user?.image || "/default-avatar.jpg"} // Usa una imagen predeterminada si no existe la imagen del usuario
-  //             alt="Avatar"
-  //             width={30}
-  //             height={30}
-  //             className="rounded-full"
-  //             loading="lazy"
-  //           />
-  //         </div>
-  //       </div>
-  //       <div className="flex items-center gap-2">
-  //         <button onClick={() => signOut()}>Cerrar sesión</button>
-  //       </div>
-  //     </main>
-  //   </>
-  // );
 }

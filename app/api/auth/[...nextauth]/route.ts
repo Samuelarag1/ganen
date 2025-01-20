@@ -6,25 +6,25 @@ const authOptions: AuthOptions = {
     TwitterProvider({
       clientId: process.env.TWITTER_CLIENT_ID || "",
       clientSecret: process.env.TWITTER_CLIENT_SECRET || "",
-      version: "2.0", // API de Twitter v2
+      version: "2.0",
     }),
   ],
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
-        token.accessToken = account.access_token as string; // Asegura que `access_token` sea tratado como `string`
+        token.accessToken = account.access_token as string;
       }
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string; // Asegura que `token.accessToken` sea tratado como `string`
+      session.accessToken = token.accessToken as string;
       return session;
     },
   },
   pages: {
-    signIn: "/auth/signin", // Página personalizada de inicio de sesión
+    signIn: "/auth/signin",
   },
-  secret: process.env.NEXTAUTH_SECRET || "", // Asegúrate de definir esta variable
+  secret: process.env.NEXTAUTH_SECRET || "",
 };
 
 const handler = NextAuth(authOptions);
